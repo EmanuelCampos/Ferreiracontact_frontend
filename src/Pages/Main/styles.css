@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+header {
+  grid-column: 1/13;
+  background: #FF0BBD;
+  padding: 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: left;
+  align-self: left;
+  margin-left: 18%;
+  transition: 0.3s;
+}
+
+.logo:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.container {
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  justify-content: center;
+}
+
+main {
+  grid-column: 3/13;
+  margin: 16px 16px;
+}
+
+.main-table {
+  grid-column: 3/12;
+}
+
+main h1, p{
+  margin: 16px 16px;
+}
+
+main input {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-items: center;
+  height: 36px;
+  width: 236px;
+  border: 1px solid #E3E3E3;
+  border-radius: 4px;
+  font-size: 16px;
+  
+  color: #666;
+  padding: 4px;
+}
+
+input::placeholder {
+  
+}
+
+main select {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-items: center;
+  height: 36px;
+  width: 236px;
+  border: 1px solid #E3E3E3;
+  border-radius: 4px;
+  font-size: 16px;
+  
+  color: #666;
+  padding: 4px;
+}
+
+
+.animation {
+  animation: scale 0.5s 0.5s backwards;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0);
+  } to {
+    transform: scale(1);
+  }
+}
+
+label {
+  margin: 0 16px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+input, select{
+  margin: 8px auto;
+  display: block;
+}
+
+
+
+main button {
+  background: #0B98FF;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  width: 236px;
+  height: 36px;
+  border : 0 ;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: 0.3s linear
+}
+
+main button:hover {
+  background: rgb(10, 131, 218);
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.main-table {
+  overflow-x:auto;
+}
+
+table {
+  grid-column: 3/12;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin-top: 32px;
+
+
+}
+
+@media (max-width: 500px) {
+
+  .logo {
+    margin-left: 6%;
+  }
+
+  main {
+    grid-column: 1/13;
+  }
+
+  main button {
+    margin-left: 5%;
+  }
+
+  .main-table {
+    grid-column: 1/13;
+  }
+
+  table {
+  grid-column: 1fr;
+  }
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
