@@ -13,6 +13,13 @@ html, body, #root {
 
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 header {
   grid-column: 1/13;
   background: #FF0BBD;
@@ -48,6 +55,7 @@ main {
 }
 
 main h1, p{
+  color: #363636;
   margin: 16px 16px;
 }
 
@@ -121,7 +129,7 @@ main button {
   border : 0 ;
   border-radius: 4px;
   text-transform: uppercase;
-  transition: 0.3s linear
+  transition: 0.3s linear;
 }
 
 main button:hover {
@@ -178,4 +186,85 @@ th, td {
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.modal-header {
+display: flex;
+align-items: center;
+flex-direction: row;
+justify-content: space-between;
+margin: 16px;
+}
+
+.close-button {
+  
+  transition: 2s;
+}
+
+.close-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+
+.modal-form {
+  padding: 8px; 
+}
+
+.modal-form input {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-items: center;
+  height: 36px;
+  width: 236px;
+  border: 1px solid #E3E3E3;
+  border-radius: 4px;
+  font-size: 16px;
+  
+  color: #666;
+  padding: 4px;
+}
+
+.modal-form button {
+  display: block;
+  height: 36px;
+  width: 136px;
+  margin-left: 8px;
+}
+
+.modal-buttons {
+  max-width: 1088px;
+  display: flex;
+  margin-top: 32px;
+  margin-right: 16px;
+
+  justify-content: flex-end;
+  
+}
+
+.btn-cancel {
+  border: 1px solid #EEE;
+  border-radius: 4px;
+  color : #666;
+  background: none;
+  font-weight: bold;
+  transition: 1s;
+}
+
+.btn-cancel:hover {
+border: 1px solid #666;
+}
+
+.btn-change {
+  border: 1px solid #EEE;
+  border-radius: 4px;
+  color: white;
+  background: #0B98FF;
+  font-weight: bold;
+  transition: 1s;
+}
+
+.btn-change:hover {
+  background: rgb(9, 117, 194);
 }
