@@ -20,4 +20,4 @@ CRUD completo, com as opções de Create, Read, Update e Delete
 
 ## Authors
 
-* [Emanuel Campos Lima Ferreira](https://github.com/EmanuelCampos/) - FrontEnd e Backend
+* [Emanuel Campos Lima Ferreira](https://github.com/EmanuelCampos/) - Frontend e Backend
