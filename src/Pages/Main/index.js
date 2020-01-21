@@ -98,8 +98,7 @@ export default function Main() {
 
   }
 
-  async function handleDel(id, e) {
-    e.preventDefault()
+  async function handleDel(id) {
 
     const filteredUsers = users.filter(user => user._id !== id)
     await api.delete('/users/' + id);
