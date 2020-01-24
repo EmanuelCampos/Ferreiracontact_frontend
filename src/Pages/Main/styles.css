@@ -65,7 +65,7 @@ main input {
   flex-direction: row;
   justify-items: center;
   height: 36px;
-  width: 236px;
+  width: 200px;
   border: 1px solid #E3E3E3;
   border-radius: 4px;
   font-size: 16px;
@@ -112,7 +112,17 @@ label {
   font-weight: bold;
 }
 
-input, select{
+label:before {
+  background-color: #000;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  margin-right: 3px;
+  vertical-align: middle;
+  width: 10px;
+}
+
+input, select {
   margin: 8px auto;
   display: block;
 }
@@ -182,6 +192,15 @@ table {
 th, td {
   text-align: left;
   padding: 16px;
+}
+
+td img {
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+}
+
+#upload-photo {
 }
 
 tr:nth-child(even) {
