@@ -18,7 +18,7 @@ CRUD completo, com as opções de Create, Read, Update e Delete
 
 ## Picture
 
-(./images/tela1.png)
+![ScreenPicture](https://github.com/EmanuelCampos/Ferreiracontact_frontend/blob/master/images/Tela1.png)
 
 ## Authors
 
