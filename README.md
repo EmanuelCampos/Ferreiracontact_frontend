@@ -16,8 +16,11 @@ CRUD completo, com as opções de Create, Read, Update e Delete
 * React-icons - Utilizado para inserir os icones
 * React-modal - Criação do modal para edição dos usuários
 
+## Picture
 
+(./images/tela1.png)
 
 ## Authors
 
-* [Emanuel Campos Lima Ferreira](https://github.com/EmanuelCampos/) - Frontend e Backend
+| [<img src="https://avatars2.githubusercontent.com/u/16262455?s=115&v=3"><br><sub>@EmanuelCampos</sub>](https://github.com/EmanuelCampos) |
+| :------------------------------------------------------------------------------------------------------------------------------: |
