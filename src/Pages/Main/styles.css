@@ -269,6 +269,7 @@ margin: 16px;
   background: none;
   font-weight: bold;
   transition: 1s;
+  cursor: pointer;
 }
 
 .btn-cancel:hover {
@@ -282,6 +283,7 @@ border: 1px solid #666;
   background: #0B98FF;
   font-weight: bold;
   transition: 1s;
+  cursor: pointer;
 }
 
 .btn-change:hover {
