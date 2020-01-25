@@ -75,7 +75,7 @@ export default function Main() {
 
       const user = response.data;
 
-      setUser(response.data)
+      setUser(user)
     }
 
     loadTable()
@@ -87,7 +87,7 @@ export default function Main() {
   async function handleAdd(e) {
     e.preventDefault();
 
-    const response = await api.post('/users', {
+    await api.post('/users', {
       name,
       country,
       email,
@@ -147,8 +147,8 @@ export default function Main() {
             <div>
             </div>
             <form className="animation" onSubmit={handleAdd}>
-              <label htmlFor="name">Name :
-              <input
+              <label htmlFor="name">Name<span class="f-required"> * </span>
+                <input
                   placeholder="Type your name"
                   name="name"
                   type="text"
@@ -163,11 +163,12 @@ export default function Main() {
 
               </label>
 
-              <label htmlFor="country">Country :
-              <input
+              <label htmlFor="country">Country<span class="f-required"> * </span>
+                <input
                   placeholder="Type your country"
                   name="country"
                   type="text"
+                  required
                   value={country}
                   onChange={e => setCountry(e.target.value)}
                   autocomplete="off"
@@ -179,12 +180,13 @@ export default function Main() {
 
               </label>
 
-              <label htmlFor="email">Email :
+              <label htmlFor="email">Email<span class="f-required"> * </span>
 
-            <input
+                <input
                   placeholder="Type your e-mail"
                   name="email"
                   type="text"
+                  required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   autocomplete="off"
@@ -194,11 +196,12 @@ export default function Main() {
                 </input>
               </label>
 
-              <label htmlFor="phone">Phone :
+              <label htmlFor="phone">Phone
             <input
                   placeholder="Enter your phone"
                   name="phone"
                   type="text"
+                  required
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
                   autocomplete="off"

@@ -127,7 +127,9 @@ input, select {
   display: block;
 }
 
-
+.f-required {
+  color : red;
+}
 
 main button {
   background: #0B98FF;
