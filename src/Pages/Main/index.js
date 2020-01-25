@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
+
 import './styles.css'
 import logo from '../../image/logo.svg'
 import { MdDelete, MdEdit, MdClose } from 'react-icons/md'
@@ -7,6 +8,9 @@ import { MdDelete, MdEdit, MdClose } from 'react-icons/md'
 import Modal from 'react-modal';
 
 import api from '../../services/api'
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const customStyles = {
   content: {
@@ -90,6 +94,7 @@ export default function Main() {
       phone
     })
 
+    toast("User added successfully!");
     setName('')
     setCountry('')
     setEmail('')
@@ -105,9 +110,10 @@ export default function Main() {
 
     setUser(filteredUsers)
 
+    toast.warn("the field has been deleted")
   }
 
-  async function handleEdit() {
+  function handleEdit() {
 
     api.put('/users/', {
       _id: editId,
@@ -117,8 +123,9 @@ export default function Main() {
       phone: editPhone
     }).then((res) => {
       closeModal()
+      toast.success("User changed successfully")
     }).catch((error) => {
-      // TODO: implementar isso mais tarde
+      toast.error("ERROR: check the fields")
     })
 
 
