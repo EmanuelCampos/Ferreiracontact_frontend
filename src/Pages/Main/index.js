@@ -85,7 +85,6 @@ export default function Main() {
 
 
   async function handleAdd(e) {
-    e.preventDefault();
 
     await api.post('/users', {
       name,
