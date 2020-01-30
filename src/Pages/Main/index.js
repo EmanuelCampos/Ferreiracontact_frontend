@@ -85,19 +85,26 @@ export default function Main() {
 
 
   async function handleAdd(e) {
+    e.preventDefault();
 
     await api.post('/users', {
       name,
       country,
       email,
       phone
+    }).then((res) => {
+
+      toast("User added successfully!");
+      setName('')
+      setCountry('')
+      setEmail('')
+      setPhone('')
+
+    }).catch((error) => {
+      console.log('ERRO')
     })
 
-    toast("User added successfully!");
-    setName('')
-    setCountry('')
-    setEmail('')
-    setPhone('')
+
 
 
   }
