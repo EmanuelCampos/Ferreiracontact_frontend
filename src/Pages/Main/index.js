@@ -84,10 +84,10 @@ export default function Main() {
 
 
 
-  async function handleAdd(e) {
+  function handleAdd(e) {
     e.preventDefault();
 
-    await api.post('/users', {
+    api.post('/users', {
       name,
       country,
       email,
