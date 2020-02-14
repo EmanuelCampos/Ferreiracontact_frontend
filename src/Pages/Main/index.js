@@ -72,11 +72,9 @@ export default function Main() {
 
     async function loadTable() {
       const response = await api.get('/users')
-
       const user = response.data;
-
-      setUser(user)
     }
+
 
     loadTable()
 
@@ -84,7 +82,8 @@ export default function Main() {
 
 
 
-  function handleAdd() {
+  function handleAdd(e) {
+    e.preventDefault()
 
     const response = api.post('/users', {
       name,
