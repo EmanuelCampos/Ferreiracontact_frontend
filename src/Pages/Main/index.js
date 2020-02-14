@@ -87,12 +87,13 @@ export default function Main() {
   function handleAdd(e) {
     e.preventDefault();
 
-    api.post('/users', {
+    const response = api.post('/users', {
       name,
       country,
       email,
       phone
     }).then((res) => {
+      console.log('chegou aqui')
 
       toast("User added successfully!");
       setName('')
@@ -101,8 +102,10 @@ export default function Main() {
       setPhone('')
 
     }).catch((error) => {
-      console.log('ERRO')
+      console.log(error)
     })
+
+    console.log(response.data)
 
 
 
@@ -140,7 +143,7 @@ export default function Main() {
 
   return (
     <>
-      <div class="container">
+      <div className="container">
         <header>
           <div className="logo">
             <img src={logo} alt="ferreiracontato"></img>
@@ -153,7 +156,7 @@ export default function Main() {
             <div>
             </div>
             <form className="animation" onSubmit={handleAdd}>
-              <label htmlFor="name">Name<span class="f-required"> * </span>
+              <label htmlFor="name">Name<span className="f-required"> * </span>
                 <input
                   placeholder="Type your name"
                   name="name"
@@ -161,7 +164,7 @@ export default function Main() {
                   required
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  autocomplete="off"
+                  autoComplete="off"
 
                 >
                 </input>
@@ -169,7 +172,7 @@ export default function Main() {
 
               </label>
 
-              <label htmlFor="country">Country<span class="f-required"> * </span>
+              <label htmlFor="country">Country<span className="f-required"> * </span>
                 <input
                   placeholder="Type your country"
                   name="country"
@@ -177,7 +180,7 @@ export default function Main() {
                   required
                   value={country}
                   onChange={e => setCountry(e.target.value)}
-                  autocomplete="off"
+                  autoComplete="off"
 
                 >
                 </input>
@@ -186,7 +189,7 @@ export default function Main() {
 
               </label>
 
-              <label htmlFor="email">Email<span class="f-required"> * </span>
+              <label htmlFor="email">Email<span className="f-required"> * </span>
 
                 <input
                   placeholder="Type your e-mail"
@@ -195,7 +198,7 @@ export default function Main() {
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  autocomplete="off"
+                  autoComplete="off"
 
                 >
 
@@ -210,7 +213,7 @@ export default function Main() {
                   required
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
-                  autocomplete="off"
+                  autoComplete="off"
                 >
 
                 </input>
