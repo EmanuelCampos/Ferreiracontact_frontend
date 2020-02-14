@@ -74,7 +74,7 @@ export default function Main() {
       setUser(userList)
     }
     load()
-  }, [])
+  }, [setUser])
 
   useEffect(() => {
     loadUsers()
