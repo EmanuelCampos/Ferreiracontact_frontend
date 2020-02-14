@@ -84,8 +84,7 @@ export default function Main() {
 
 
 
-  function handleAdd(e) {
-    e.preventDefault();
+  function handleAdd() {
 
     const response = api.post('/users', {
       name,
