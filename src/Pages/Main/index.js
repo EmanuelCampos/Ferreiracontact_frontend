@@ -73,6 +73,7 @@ export default function Main() {
       const response = await api.get('/users')
       const userList = response.data;
       setUser(userList)
+
     }
 
     load()
@@ -80,7 +81,7 @@ export default function Main() {
 
   useEffect(() => {
     loadUsers()
-  })
+  }, [loadUsers])
 
 
 
