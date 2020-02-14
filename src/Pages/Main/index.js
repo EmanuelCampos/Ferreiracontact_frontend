@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 import './styles.css'
 import logo from '../../image/logo.svg'
@@ -67,17 +67,18 @@ export default function Main() {
     setIsOpen(false);
   }
 
-  const load = async () => {
-    const response = await api.get('/users')
-    const userList = response.data;
-
-    setUser(userList)
-  }
-
+  const loadUsers = useCallback(() => {
+    async function load() {
+      const response = await api.get('/users')
+      const userList = response.data;
+      setUser(userList)
+    }
+    load()
+  }, [])
 
   useEffect(() => {
-    load()
-  }, [users])
+    loadUsers()
+  })
 
 
 
