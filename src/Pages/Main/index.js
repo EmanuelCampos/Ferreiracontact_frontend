@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 
 import './styles.css'
 import logo from '../../image/logo.svg'
@@ -30,7 +30,6 @@ Modal.setAppElement('#root')
 export default function Main() {
 
   const [users, setUser] = useState([])
-
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
   const [email, setEmail] = useState('')
@@ -68,20 +67,17 @@ export default function Main() {
     setIsOpen(false);
   }
 
-  const loadUsers = useCallback(() => {
-    async function load() {
-      const response = await api.get('/users')
-      const userList = response.data;
-      setUser(userList)
+  const load = async () => {
+    const response = await api.get('/users')
+    const userList = response.data;
 
-    }
+    setUser(userList)
+  }
 
-    load()
-  }, [])
 
   useEffect(() => {
-    loadUsers()
-  }, [loadUsers, users])
+    load()
+  }, [users])
 
 
 
