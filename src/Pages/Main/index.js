@@ -1,17 +1,11 @@
-import React from 'react';
-import { useState, useEffect, useCallback } from 'react'
-
+import React, { useCallback, useEffect, useState } from 'react'
 import './styles.css'
+import { MdClose, MdDelete, MdEdit } from 'react-icons/md'
 import logo from '../../image/logo.svg'
-import { MdDelete, MdEdit, MdClose } from 'react-icons/md'
-
 import Modal from 'react-modal';
-
 import api from '../../services/api'
-
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from 'react-toastify';
 const customStyles = {
   content: {
     top: '50%',
@@ -24,104 +18,71 @@ const customStyles = {
     borderRadius: '4px'
   }
 };
-
 Modal.setAppElement('#root')
-
 export default function Main() {
-
-  const [users, setUser] = useState([])
+  const [users, setUsers] = useState([])
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-
-
   const [editId, editSetId] = useState('')
   const [editName, editSetName] = useState('')
   const [editCountry, editSetCountry] = useState('')
   const [editEmail, editSetEmail] = useState('')
   const [editPhone, editSetPhone] = useState('')
-
-  var subtitle;
-
+  let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
   function openModal(user, index) {
-
     editSetId(user._id);
     editSetName(user.name);
     editSetCountry(user.country);
     editSetEmail(user.email);
     editSetPhone(user.phone);
-
     console.log(user);
     setIsOpen(true);
   }
-
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     subtitle.style.color = '#292929';
   }
-
   function closeModal() {
     setIsOpen(false);
   }
-
   const loadUsers = useCallback(() => {
     async function load() {
       const response = await api.get('/users')
       const userList = response.data;
-      setUser(userList)
+      setUsers(userList)
     }
     load()
   }, [])
-
   useEffect(() => {
     loadUsers()
   })
-
-
-
-  function handleAdd(e) {
-    e.preventDefault()
-
+  function handleAdd() {
     const response = api.post('/users', {
       name,
       country,
       email,
       phone
     }).then((res) => {
-      console.log('chegou aqui')
-
-      toast("User added successfully!");
+      loadUsers()
+      toast('User added successfully!');
       setName('')
       setCountry('')
       setEmail('')
       setPhone('')
-
     }).catch((error) => {
       console.log(error)
     })
-
     console.log(response.data)
-
-
-
-
   }
-
   async function handleDel(id) {
-
-    const filteredUsers = users.filter(user => user._id !== id)
-    await api.delete('/users/' + id);
-
-    setUser(filteredUsers)
-
-    toast.warn("the field has been deleted")
+    await api.delete(`/users/${id}`);
+    loadUsers()
+    toast.warn('the field has been deleted')
   }
-
   function handleEdit() {
-
     api.put('/users/', {
       _id: editId,
       name: editName,
@@ -130,100 +91,75 @@ export default function Main() {
       phone: editPhone
     }).then((res) => {
       closeModal()
-      toast.success("User changed successfully")
+      toast.success('User changed successfully')
+      loadUsers()
     }).catch((error) => {
-      toast.error("ERROR: check the fields")
+      toast.error('ERROR: check the fields')
     })
-
-
   }
-
-
   return (
     <>
-      <div className="container">
+      <div className='container'>
         <header>
-          <div className="logo">
-            <img src={logo} alt="ferreiracontato"></img>
+          <div className='logo'>
+            <img alt='ferreiracontato' src={logo} />
           </div>
         </header>
         <main>
-          <div className="text-top">
+          <div className='text-top'>
             <h1>Insert your contact</h1>
             <p>All fields are required</p>
-            <div>
-            </div>
-            <form className="animation" onSubmit={handleAdd}>
-              <label htmlFor="name">Name<span className="f-required"> * </span>
+            <div />
+            <form className='animation' onSubmit={() => handleAdd}>
+              <label htmlFor='name'>Name<span className='f-required'> * </span>
                 <input
-                  placeholder="Type your name"
-                  name="name"
-                  type="text"
-                  required
-                  value={name}
+                  autoComplete='off'
+                  name='name'
                   onChange={e => setName(e.target.value)}
-                  autoComplete="off"
-
-                >
-                </input>
-
-
-              </label>
-
-              <label htmlFor="country">Country<span className="f-required"> * </span>
-                <input
-                  placeholder="Type your country"
-                  name="country"
-                  type="text"
+                  placeholder='Type your name'
                   required
-                  value={country}
+                  type='text'
+                  value={name}
+                />
+              </label>
+              <label htmlFor='country'>Country<span className='f-required'> * </span>
+                <input
+                  autoComplete='off'
+                  name='country'
                   onChange={e => setCountry(e.target.value)}
-                  autoComplete="off"
-
-                >
-                </input>
-
-
-
+                  placeholder='Type your country'
+                  required
+                  type='text'
+                  value={country}
+                />
               </label>
-
-              <label htmlFor="email">Email<span className="f-required"> * </span>
-
+              <label htmlFor='email'>Email<span className='f-required'> * </span>
                 <input
-                  placeholder="Type your e-mail"
-                  name="email"
-                  type="text"
-                  required
-                  value={email}
+                  autoComplete='off'
+                  name='email'
                   onChange={e => setEmail(e.target.value)}
-                  autoComplete="off"
-
-                >
-
-                </input>
-              </label>
-
-              <label htmlFor="phone">Phone
-            <input
-                  placeholder="Enter your phone"
-                  name="phone"
-                  type="text"
+                  placeholder='Type your e-mail'
                   required
-                  value={phone}
-                  onChange={e => setPhone(e.target.value)}
-                  autoComplete="off"
-                >
-
-                </input>
+                  type='text'
+                  value={email}
+                />
               </label>
-
-
-              <button type="Submit">Insert</button>
+              <label htmlFor='phone'>Phone
+                <input
+                  autoComplete='off'
+                  name='phone'
+                  onChange={e => setPhone(e.target.value)}
+                  placeholder='Enter your phone'
+                  required
+                  type='text'
+                  value={phone}
+                />
+              </label>
+              <button type='Submit'>Insert</button>
             </form>
           </div>
-
         </main>
-        <main className="main-table">
+        <main className='main-table'>
           <h1>Contacts</h1>
           <p>This table have Name, country, e-mail, phone and actions for delete or edit your contacts.</p>
           <table>
@@ -235,77 +171,69 @@ export default function Main() {
               <th>Action</th>
             </tr>
             {users.map((user, index) => (
-              <tr className="animation" key={user._id}>
+              <tr className='animation' key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.country}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
-                <td><MdDelete onClick={() => handleDel(user._id)} className="delete-button" size={24} color="#747474"></MdDelete>
-                  <MdEdit onClick={() => openModal(user, index)} size={24} color="#747474" className="delete-button"></MdEdit></td>
+                <td><MdDelete className='delete-button' color='#747474' onClick={() => handleDel(user._id)} size={24} />
+                  <MdEdit className='delete-button' color='#747474' onClick={() => openModal(user, index)} size={24} /></td>
               </tr>
             ))}
             <Modal
+              contentLabel='Example Modal'
               isOpen={modalIsOpen}
               onAfterOpen={afterOpenModal}
               onRequestClose={closeModal}
               style={customStyles}
-              contentLabel="Example Modal"
             >
-              <div className="modal-header">
+              <div className='modal-header'>
                 <h2 ref={_subtitle => (subtitle = _subtitle)}>Edit</h2>
-                <MdClose className="close-button" onClick={closeModal} size={24} color="#333"></MdClose>
-
+                <MdClose className='close-button' color='#333' onClick={closeModal} size={24} />
               </div>
               <p>Change the user information.</p>
-
-              <form className="modal-form">
-                <label htmlFor="name"> Name :
-                <input
-                    type="text"
-                    value={editName}
+              <form className='modal-form'>
+                <label htmlFor='name'> Name :
+                  <input
+                    name='name'
                     onChange={(e) => editSetName(e.target.value)}
-                    name="name"
-                    placeholder="Type your new name" />
+                    placeholder='Type your new name'
+                    type='text'
+                    value={editName} />
                 </label>
-                <label htmlFor="name"> Country :
-                <input
-                    type="text"
-                    value={editCountry}
+                <label htmlFor='name'> Country :
+                  <input
+                    name='country'
                     onChange={(e) => editSetCountry(e.target.value)}
-                    name="country"
-                    placeholder="Type your new country" />
+                    placeholder='Type your new country'
+                    type='text'
+                    value={editCountry} />
                 </label>
-                <label htmlFor="name"> Email :
-                <input
-                    type="text"
-                    value={editEmail}
+                <label htmlFor='name'> Email :
+                  <input
+                    name='email'
                     onChange={(e) => editSetEmail(e.target.value)}
-                    name="email"
-                    placeholder="Type your new email" />
+                    placeholder='Type your new email'
+                    type='text'
+                    value={editEmail} />
                 </label>
-                <label htmlFor="name"> Phone :
-                <input
-                    type="text"
-                    value={editPhone}
+                <label htmlFor='name'> Phone :
+                  <input
+                    name='phone'
                     onChange={(e) => editSetPhone(e.target.value)}
-                    name="phone"
-                    placeholder="Type your new phone" />
+                    placeholder='Type your new phone'
+                    type='text'
+                    value={editPhone} />
                 </label>
-                <div className="modal-buttons">
-                  <button className="btn-cancel" type="button" onClick={closeModal}>Cancel</button>
-                  <button className="btn-change" type="button" onClick={() => handleEdit()} > Change</button>
-
-
+                <div className='modal-buttons'>
+                  <button className='btn-cancel' onClick={closeModal} type='button'>Cancel</button>
+                  <button className='btn-change' onClick={() => handleEdit()} type='button' > Change</button>
                 </div>
               </form>
             </Modal>
-
-
           </table>
         </main>
-
       </div>
     </>
-
   );
 }
