@@ -68,249 +68,248 @@ export default function Main() {
     setIsOpen(false);
   }
 
+  const loadUsers = useCallback(() => {
+    async function load() {
+      const response = await api.get('/users')
+      const userList = response.data;
+      setUser(userList)
+    }
+
+    load()
+  }, [])
+
   useEffect(() => {
-
-    const loadUsers = useCallback(() => {
-      async function load() {
-        const response = await api.get('/users')
-        const userList = response.data;
-        setUsers(userList)
-      }
-      load()
-    }, [])
-
-    useEffect(() => {
-      loadUsers()
-    }, [users])
+    loadUsers()
+  }, [loadUsers, users])
 
 
 
 
 
-    function handleAdd(e) {
-      e.preventDefault()
+  function handleAdd(e) {
+    e.preventDefault()
 
-      const response = api.post('/users', {
-        name,
-        country,
-        email,
-        phone
-      }).then((res) => {
-        console.log('chegou aqui')
+    const response = api.post('/users', {
+      name,
+      country,
+      email,
+      phone
+    }).then((res) => {
+      console.log('chegou aqui')
 
-        toast("User added successfully!");
-        setName('')
-        setCountry('')
-        setEmail('')
-        setPhone('')
+      toast("User added successfully!");
+      setName('')
+      setCountry('')
+      setEmail('')
+      setPhone('')
 
-      }).catch((error) => {
-        console.log(error)
-      })
+    }).catch((error) => {
+      console.log(error)
+    })
 
-      console.log(response.data)
-
-
+    console.log(response.data)
 
 
-    }
-
-    async function handleDel(id) {
-
-      const filteredUsers = users.filter(user => user._id !== id)
-      await api.delete('/users/' + id);
-
-      setUser(filteredUsers)
-
-      toast.warn("the field has been deleted")
-    }
-
-    function handleEdit() {
-
-      api.put('/users/', {
-        _id: editId,
-        name: editName,
-        country: editCountry,
-        email: editEmail,
-        phone: editPhone
-      }).then((res) => {
-        closeModal()
-        toast.success("User changed successfully")
-      }).catch((error) => {
-        toast.error("ERROR: check the fields")
-      })
 
 
-    }
+  }
+
+  async function handleDel(id) {
+
+    const filteredUsers = users.filter(user => user._id !== id)
+    await api.delete('/users/' + id);
+
+    setUser(filteredUsers)
+
+    toast.warn("the field has been deleted")
+  }
+
+  function handleEdit() {
+
+    api.put('/users/', {
+      _id: editId,
+      name: editName,
+      country: editCountry,
+      email: editEmail,
+      phone: editPhone
+    }).then((res) => {
+      closeModal()
+      toast.success("User changed successfully")
+    }).catch((error) => {
+      toast.error("ERROR: check the fields")
+    })
 
 
-    return (
-      <>
-        <div className="container">
-          <header>
-            <div className="logo">
-              <img src={logo} alt="ferreiracontato"></img>
+  }
+
+
+  return (
+    <>
+      <div className="container">
+        <header>
+          <div className="logo">
+            <img src={logo} alt="ferreiracontato"></img>
+          </div>
+        </header>
+        <main>
+          <div className="text-top">
+            <h1>Insert your contact</h1>
+            <p>All fields are required</p>
+            <div>
             </div>
-          </header>
-          <main>
-            <div className="text-top">
-              <h1>Insert your contact</h1>
-              <p>All fields are required</p>
-              <div>
-              </div>
-              <form className="animation" onSubmit={handleAdd}>
-                <label htmlFor="name">Name<span className="f-required"> * </span>
-                  <input
-                    placeholder="Type your name"
-                    name="name"
-                    type="text"
-                    required
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    autoComplete="off"
+            <form className="animation" onSubmit={handleAdd}>
+              <label htmlFor="name">Name<span className="f-required"> * </span>
+                <input
+                  placeholder="Type your name"
+                  name="name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  autoComplete="off"
 
-                  >
-                  </input>
+                >
+                </input>
 
 
-                </label>
+              </label>
 
-                <label htmlFor="country">Country<span className="f-required"> * </span>
-                  <input
-                    placeholder="Type your country"
-                    name="country"
-                    type="text"
-                    required
-                    value={country}
-                    onChange={e => setCountry(e.target.value)}
-                    autoComplete="off"
+              <label htmlFor="country">Country<span className="f-required"> * </span>
+                <input
+                  placeholder="Type your country"
+                  name="country"
+                  type="text"
+                  required
+                  value={country}
+                  onChange={e => setCountry(e.target.value)}
+                  autoComplete="off"
 
-                  >
-                  </input>
+                >
+                </input>
 
 
 
-                </label>
+              </label>
 
-                <label htmlFor="email">Email<span className="f-required"> * </span>
+              <label htmlFor="email">Email<span className="f-required"> * </span>
 
-                  <input
-                    placeholder="Type your e-mail"
-                    name="email"
-                    type="text"
-                    required
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    autoComplete="off"
+                <input
+                  placeholder="Type your e-mail"
+                  name="email"
+                  type="text"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  autoComplete="off"
 
-                  >
+                >
 
-                  </input>
-                </label>
+                </input>
+              </label>
 
-                <label htmlFor="phone">Phone
+              <label htmlFor="phone">Phone
             <input
-                    placeholder="Enter your phone"
-                    name="phone"
-                    type="text"
-                    required
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    autoComplete="off"
-                  >
+                  placeholder="Enter your phone"
+                  name="phone"
+                  type="text"
+                  required
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
+                  autoComplete="off"
+                >
 
-                  </input>
-                </label>
+                </input>
+              </label>
 
 
-                <button type="Submit">Insert</button>
-              </form>
-            </div>
+              <button type="Submit">Insert</button>
+            </form>
+          </div>
 
-          </main>
-          <main className="main-table">
-            <h1>Contacts</h1>
-            <p>This table have Name, country, e-mail, phone and actions for delete or edit your contacts.</p>
-            <table>
-              <tr>
-                <th>Name</th>
-                <th>Country</th>
-                <th>E-mail</th>
-                <th>Phone</th>
-                <th>Action</th>
+        </main>
+        <main className="main-table">
+          <h1>Contacts</h1>
+          <p>This table have Name, country, e-mail, phone and actions for delete or edit your contacts.</p>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Country</th>
+              <th>E-mail</th>
+              <th>Phone</th>
+              <th>Action</th>
+            </tr>
+            {users.map((user, index) => (
+              <tr className="animation" key={user._id}>
+                <td>{user.name}</td>
+                <td>{user.country}</td>
+                <td>{user.email}</td>
+                <td>{user.phone}</td>
+                <td><MdDelete onClick={() => handleDel(user._id)} className="delete-button" size={24} color="#747474"></MdDelete>
+                  <MdEdit onClick={() => openModal(user, index)} size={24} color="#747474" className="delete-button"></MdEdit></td>
               </tr>
-              {users.map((user, index) => (
-                <tr className="animation" key={user._id}>
-                  <td>{user.name}</td>
-                  <td>{user.country}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone}</td>
-                  <td><MdDelete onClick={() => handleDel(user._id)} className="delete-button" size={24} color="#747474"></MdDelete>
-                    <MdEdit onClick={() => openModal(user, index)} size={24} color="#747474" className="delete-button"></MdEdit></td>
-                </tr>
-              ))}
-              <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-              >
-                <div className="modal-header">
-                  <h2 ref={_subtitle => (subtitle = _subtitle)}>Edit</h2>
-                  <MdClose className="close-button" onClick={closeModal} size={24} color="#333"></MdClose>
+            ))}
+            <Modal
+              isOpen={modalIsOpen}
+              onAfterOpen={afterOpenModal}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+              <div className="modal-header">
+                <h2 ref={_subtitle => (subtitle = _subtitle)}>Edit</h2>
+                <MdClose className="close-button" onClick={closeModal} size={24} color="#333"></MdClose>
+
+              </div>
+              <p>Change the user information.</p>
+
+              <form className="modal-form">
+                <label htmlFor="name"> Name :
+                <input
+                    type="text"
+                    value={editName}
+                    onChange={(e) => editSetName(e.target.value)}
+                    name="name"
+                    placeholder="Type your new name" />
+                </label>
+                <label htmlFor="name"> Country :
+                <input
+                    type="text"
+                    value={editCountry}
+                    onChange={(e) => editSetCountry(e.target.value)}
+                    name="country"
+                    placeholder="Type your new country" />
+                </label>
+                <label htmlFor="name"> Email :
+                <input
+                    type="text"
+                    value={editEmail}
+                    onChange={(e) => editSetEmail(e.target.value)}
+                    name="email"
+                    placeholder="Type your new email" />
+                </label>
+                <label htmlFor="name"> Phone :
+                <input
+                    type="text"
+                    value={editPhone}
+                    onChange={(e) => editSetPhone(e.target.value)}
+                    name="phone"
+                    placeholder="Type your new phone" />
+                </label>
+                <div className="modal-buttons">
+                  <button className="btn-cancel" type="button" onClick={closeModal}>Cancel</button>
+                  <button className="btn-change" type="button" onClick={() => handleEdit()} > Change</button>
+
 
                 </div>
-                <p>Change the user information.</p>
-
-                <form className="modal-form">
-                  <label htmlFor="name"> Name :
-                <input
-                      type="text"
-                      value={editName}
-                      onChange={(e) => editSetName(e.target.value)}
-                      name="name"
-                      placeholder="Type your new name" />
-                  </label>
-                  <label htmlFor="name"> Country :
-                <input
-                      type="text"
-                      value={editCountry}
-                      onChange={(e) => editSetCountry(e.target.value)}
-                      name="country"
-                      placeholder="Type your new country" />
-                  </label>
-                  <label htmlFor="name"> Email :
-                <input
-                      type="text"
-                      value={editEmail}
-                      onChange={(e) => editSetEmail(e.target.value)}
-                      name="email"
-                      placeholder="Type your new email" />
-                  </label>
-                  <label htmlFor="name"> Phone :
-                <input
-                      type="text"
-                      value={editPhone}
-                      onChange={(e) => editSetPhone(e.target.value)}
-                      name="phone"
-                      placeholder="Type your new phone" />
-                  </label>
-                  <div className="modal-buttons">
-                    <button className="btn-cancel" type="button" onClick={closeModal}>Cancel</button>
-                    <button className="btn-change" type="button" onClick={() => handleEdit()} > Change</button>
+              </form>
+            </Modal>
 
 
-                  </div>
-                </form>
-              </Modal>
+          </table>
+        </main>
 
+      </div>
+    </>
 
-            </table>
-          </main>
-
-        </div>
-      </>
-
-    );
-  }
+  );
+}
