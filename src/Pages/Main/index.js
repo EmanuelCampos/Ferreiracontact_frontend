@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 import './styles.css'
 import logo from '../../image/logo.svg'
@@ -80,7 +80,7 @@ export default function Main() {
 
     loadTable()
 
-  }, [users])
+  }, [])
 
 
 
