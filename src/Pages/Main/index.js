@@ -81,7 +81,7 @@ export default function Main() {
 
     useEffect(() => {
       loadUsers()
-    }, [])
+    }, [users])
 
 
 
@@ -158,7 +158,7 @@ export default function Main() {
               <p>All fields are required</p>
               <div>
               </div>
-              <form className="animation" onSubmit={() => handleAdd}>
+              <form className="animation" onSubmit={handleAdd}>
                 <label htmlFor="name">Name<span className="f-required"> * </span>
                   <input
                     placeholder="Type your name"
