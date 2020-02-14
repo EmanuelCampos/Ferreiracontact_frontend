@@ -81,9 +81,7 @@ export default function Main() {
 
   useEffect(() => {
     loadUsers()
-  }, [loadUsers])
-
-
+  }, [loadUsers, users])
 
 
 
