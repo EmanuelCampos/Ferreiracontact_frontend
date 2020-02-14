@@ -68,17 +68,19 @@ export default function Main() {
   }
 
   const loadUsers = useCallback(() => {
+
     async function load() {
       const response = await api.get('/users')
       const userList = response.data;
       setUser(userList)
     }
+
     load()
   }, [setUser])
 
   useEffect(() => {
     loadUsers()
-  }, [loadUsers, users])
+  })
 
 
 
