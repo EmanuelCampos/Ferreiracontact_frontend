@@ -101,7 +101,7 @@ export default function Main() {
       setCountry('')
       setEmail('')
       setPhone('')
-      setUser([...users, res.data])
+      setUser([res.data, ...users])
 
     }).catch((error) => {
       console.log(error)
