@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 
 import './styles.css'
 import logo from '../../image/logo.svg'
@@ -67,8 +67,7 @@ export default function Main() {
     setIsOpen(false);
   }
 
-  const loadUsers = useCallback(() => {
-
+  useEffect(() => {
     async function load() {
       const response = await api.get('/users')
       const userList = response.data;
@@ -76,36 +75,33 @@ export default function Main() {
     }
 
     load()
-  }, [setUser])
-
-  useEffect(() => {
-    loadUsers()
-  })
+  }, [])
 
 
 
   function handleAdd(e) {
     e.preventDefault()
 
-    const response = api.post('/users', {
+    api.post('/users', {
       name,
       country,
       email,
       phone
     }).then((res) => {
-      console.log('chegou aqui')
+
 
       toast("User added successfully!");
       setName('')
       setCountry('')
       setEmail('')
       setPhone('')
+      setUser([...users, res.data])
 
     }).catch((error) => {
       console.log(error)
     })
 
-    console.log(response.data)
+
 
 
 
