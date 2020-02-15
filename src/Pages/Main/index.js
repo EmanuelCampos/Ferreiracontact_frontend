@@ -328,7 +328,7 @@ export default function Main() {
         <div className="pagination">
           <div>
             <button disabled={page === 1} onClick={backPage} className="pagination-button">Back Page</button>
-            <button onClick={nextPage} className="pagination-button">Next Page</button>
+            <button disabled={page === productInfo.pages} onClick={nextPage} className="pagination-button">Next Page</button>
           </div>
         </div>
 
