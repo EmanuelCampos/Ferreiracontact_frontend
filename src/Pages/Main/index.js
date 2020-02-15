@@ -96,12 +96,15 @@ export default function Main() {
     }).then((res) => {
 
 
+
       toast("User added successfully!");
       setName('')
       setCountry('')
       setEmail('')
       setPhone('')
-      setUser([res.data, ...users])
+      const filterUsers = setUser([res.data, ...users])
+
+      filterUsers.filter((element, index) => index < 5)
 
     }).catch((error) => {
       console.log(error)
