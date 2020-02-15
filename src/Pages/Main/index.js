@@ -29,6 +29,8 @@ Modal.setAppElement('#root')
 
 export default function Main() {
 
+  const [page, setPage] = useState(1)
+  const [productInfo, setProductInfo] = useState([])
   const [users, setUser] = useState([])
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
@@ -69,13 +71,16 @@ export default function Main() {
 
   useEffect(() => {
     async function load() {
-      const response = await api.get('/users')
-      const userList = response.data;
-      setUser(userList)
+      const response = await api.get(`/users?page=${page}`)
+
+      const { docs, ...productInfo } = response.data
+
+
+      setUser(docs, productInfo)
     }
 
     load()
-  }, [])
+  }, [page])
 
 
 
@@ -133,6 +138,24 @@ export default function Main() {
       toast.error("ERROR: check the fields")
     })
 
+
+  }
+
+  function backPage() {
+    if (page === 1) return
+
+    const pageNumber = page - 1
+
+    setPage(pageNumber)
+  }
+
+  function nextPage() {
+
+    if (page === productInfo.pages) return
+
+    const pageNumber = page + 1
+
+    setPage(pageNumber)
 
   }
 
@@ -300,7 +323,14 @@ export default function Main() {
 
 
           </table>
+
         </main>
+        <div className="pagination">
+          <div>
+            <button disabled={page === 1} onClick={backPage} className="pagination-button">Back Page</button>
+            <button onClick={nextPage} className="pagination-button">Next Page</button>
+          </div>
+        </div>
 
       </div>
     </>
