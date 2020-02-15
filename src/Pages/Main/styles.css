@@ -95,14 +95,14 @@ main select {
 
 
 .animation {
-  animation: scale 0.5s 0.5s backwards;
+  animation: scale 0.9s 0.8s backwards;
 }
 
 @keyframes scale {
   from {
-    transform: scale(0);
+    transform: translateX(-100%)
   } to {
-    transform: scale(1);
+    transform: translateX(0px);
   }
 }
 

@@ -75,8 +75,13 @@ export default function Main() {
 
       const { docs, ...productInfo } = response.data
 
+      function sortfunction(a, b) {
+        return (a - b)
+      }
 
-      setUser(docs)
+      setUser(docs.sort(sortfunction))
+
+
       setProductInfo(productInfo)
     }
 
@@ -95,16 +100,18 @@ export default function Main() {
       phone
     }).then((res) => {
 
-
+      if (users >= productInfo.limit) {
+        users.splice(-1, 1)
+      }
 
       toast("User added successfully!");
       setName('')
       setCountry('')
       setEmail('')
       setPhone('')
-      const filterUsers = setUser([res.data, ...users])
 
-      filterUsers.filter((element, index) => index < 5)
+      setUser([res.data, ...users])
+
 
     }).catch((error) => {
       console.log(error)
@@ -259,7 +266,7 @@ export default function Main() {
               <th>Phone</th>
               <th>Action</th>
             </tr>
-            {users.map((user, index) => (
+            {users.slice(0, 5).map((user, index) => (
               <tr className="animation" key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.country}</td>
