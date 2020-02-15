@@ -30,7 +30,7 @@ Modal.setAppElement('#root')
 export default function Main() {
 
   const [page, setPage] = useState(1)
-  const [productInfo, setProductInfo] = useState([])
+  const [productInfo] = useState({})
   const [users, setUser] = useState([])
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
