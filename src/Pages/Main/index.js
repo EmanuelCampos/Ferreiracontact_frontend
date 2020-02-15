@@ -30,7 +30,7 @@ Modal.setAppElement('#root')
 export default function Main() {
 
   const [page, setPage] = useState(1)
-  const [productInfo] = useState({})
+  const [productInfo, setProductInfo] = useState({})
   const [users, setUser] = useState([])
   const [name, setName] = useState('')
   const [country, setCountry] = useState('')
@@ -76,7 +76,8 @@ export default function Main() {
       const { docs, ...productInfo } = response.data
 
 
-      setUser(docs, productInfo)
+      setUser(docs)
+      setProductInfo(productInfo)
     }
 
     load()
