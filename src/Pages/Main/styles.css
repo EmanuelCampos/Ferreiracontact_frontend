@@ -202,8 +202,6 @@ td img {
   border-radius: 4px;
 }
 
-#upload-photo {
-}
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
@@ -320,6 +318,7 @@ border: 1px solid #666;
   border-radius: 4px;
   margin-left: 8px;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 .pagination-button[disabled] {
